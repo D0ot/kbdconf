@@ -63,7 +63,7 @@ int main(void) {
   while(fread(&event, sizeof(event), 1, stdin) == 1) {
     if(event.type == EV_KEY) {
 
-      if(event.code == KEY_CAPSLOCK) {
+      if(event.code == KEY_CAPSLOCK && left_ctrl == false) {
 
         if(event.value == 1) {
           pending_caps = true;
@@ -89,6 +89,8 @@ int main(void) {
             goto over;
           }
         }
+      } else if(event.code == KEY_CAPSLOCK && left_ctrl == true) {
+        goto over;
       }
 
       if(pending_caps) {
@@ -134,7 +136,6 @@ int main(void) {
         }
         goto over;
       }
-
 
     }
 
